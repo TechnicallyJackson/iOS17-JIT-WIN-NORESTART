@@ -6,27 +6,3 @@ powershell -command "Expand-Archive archive.zip ."
 del archive.zip
 pip install pymobiledevice3==2.46.2
 pip install qh3==0.15.1
-
-@echo off
-setlocal enabledelayedexpansion
-
-set "message=For everything to work, it is recommended to reboot the PC now. Do you want to reboot?"
-set "title=Reboot recommended"
-
-echo Set objShell = CreateObject("WScript.Shell") > "%temp%\messagebox.vbs"
-echo result = objShell.Popup("%message%", 0, "%title%", 36) >> "%temp%\messagebox.vbs"
-echo WScript.Quit(result) >> "%temp%\messagebox.vbs"
-
-cscript //nologo "%temp%\messagebox.vbs"
-set "result=%errorlevel%"
-
-del "%temp%\messagebox.vbs"
-
-if !result! equ 6 (
-    echo Rebooting...
-    shutdown /r /t 0
-) else (
-    exit
-)
-
-endlocal
